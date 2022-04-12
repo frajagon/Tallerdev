@@ -19,4 +19,7 @@ Route::get('/', function () {
 });
 
 Route::resource('persona', 'App\http\Controllers\PersonaController');
+Route::resource('estudiante', 'App\http\Controllers\EstudianteController');
+
 Route::get('imprimirPersonas','App\http\Controllers\PdfController@imprimirPersonas')->name('imprimirPersonas');
+Route::get('imprimirEstudiante','App\http\Controllers\PdfController@imprimirEstudiantes')->name('imprimirEstudiantes');
