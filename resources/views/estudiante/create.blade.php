@@ -52,13 +52,16 @@
     <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
         <div class="form-group">
             <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-            <input type="text" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" placeholder="Fecha de Nacimiento">
+            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" placeholder="Fecha de Nacimiento">
         </div>
     </div>
     <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
         <div class="form-group">
             <label for="estado">Estado</label>
-            <input type="text" name="estado" id="estado" class="form-control" placeholder="Estado">
+            <select class="form-select form-control" aria-label="Default select example" name="estado" id="estado">
+                <option value="1" selected="selected">Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
         </div>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

@@ -14,10 +14,10 @@
     <div class="container_old">
         <div class="row">
             <div class="col">
-                <img src="{{public_path('dist/img/logo.jpg')}}" alt="" width='60px'>
+                <img src="{{public_path('dist/img/logo-jardin.jpg')}}" alt="" width='100px'>
             </div>
             <div class="col-md-12 col-xs-12">
-                <h4 class="text-center">Institución Universitaria Antonio Jose</h4>
+                <h4 class="text-center">Liceo Porvenir en la Ciudad de Cali</h4>
             </div>
             <div class="row">
                 <h3 class="text-center">Reporte de estudiantes</h3>
@@ -44,7 +44,13 @@
                                 <td>{{ $estudiante->primer_apellido}} {{ $estudiante->segundo_apellido}}</td>
                                 <td>{{ $estudiante->numero_identificacion }}</td>
                                 <td>{{ $estudiante->fecha_nacimiento }}</td>
-                                <td>{{ $estudiante->estado }}</td>
+                                <td>
+                                    @if ($estudiante->estado == 1)
+                                        Activo
+                                    @else
+                                        Inactivo
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

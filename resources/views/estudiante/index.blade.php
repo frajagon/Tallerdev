@@ -4,10 +4,16 @@
 <div class="row">
     <div class="col-md-9">
         <a href="{{url('estudiante/create')}}" class="pull-right">
-            <button class="btn btn-success">Crear Estudiante</button> 
+            <button class="btn btn-success">
+                <i class="fas fa-user-plus"></i>
+                Crear Estudiante
+            </button>
         </a>
         <a href="{{url('imprimirEstudiantes')}}" class="pull-right" target="_blank">
-            <button class="btn btn-success">Imprimir Pdf</button>
+            <button class="btn btn-success">
+                <i class="fas fa-file-pdf"></i>
+                Imprimir Pdf
+            </button>
         </a>
     </div>
 </div>
@@ -32,12 +38,25 @@
                         <td>{{ $estudiante->primer_apellido}} {{ $estudiante->segundo_apellido}}</td>
                         <td>{{ $estudiante->numero_identificacion }}</td>
                         <td>{{ $estudiante->fecha_nacimiento }}</td>
-                        <td>{{ $estudiante->estado }}</td>
                         <td>
-                            <a href="{{URL::action('App\http\Controllers\EstudianteController@edit',$estudiante->id)}}"><button class="btn btn-primary">Actualizar</button></a>
+                            @if ($estudiante->estado == 1)
+                                Activo
+                            @else
+                                Inactivo
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{URL::action('App\http\Controllers\EstudianteController@edit',$estudiante->id)}}">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-user-edit"></i>
+                                    Actualizar
+                                </button></a>
 
                             <a href="" data-target="#modal-delete-{{$estudiante->id}}" data-toggle="modal">
-                                <button class="btn btn-danger">Eliminar</button></a>
+                                <button class="btn btn-danger">
+                                    <i class="fas fa-user-times"></i>
+                                    Eliminar
+                                </button></a>
                         </td>
                     </tr>
                     @include('estudiante.modal')

@@ -49,13 +49,16 @@
     <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
         <div class="form-group">
             <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-            <input type="text" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{$estudiante->fecha_nacimiento}}" placeholder="Fecha de Nacimiento">
+            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{$estudiante->fecha_nacimiento}}" placeholder="Fecha de Nacimiento">
         </div>
     </div>
     <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
         <div class="form-group">
             <label for="estado">Estado</label>
-            <input type="text" name="estado" id="estado" class="form-control" value="{{$estudiante->estado}}" placeholder="Estado">
+            <select class="form-select form-control" aria-label="Default select example" name="estado" id="estado">
+                <option value="1" @if ($estudiante->estado == 1) selected="selected" @endif>Activo</option>
+                <option value="0" @if ($estudiante->estado != 1) selected="selected" @endif>Inactivo</option>
+            </select>
         </div>
     </div>
 
