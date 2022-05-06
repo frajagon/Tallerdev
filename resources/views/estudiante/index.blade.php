@@ -2,6 +2,14 @@
 
 @section('contenido')
 <div class="row">
+    <div class="col">
+        <h5 class="card-title">Listado de estudiantes</h5>
+    </div>
+</div>
+
+<br>
+
+<div class="row">
     <div class="col-md-9">
         <a href="{{url('estudiante/create')}}" class="pull-right">
             <button class="btn btn-success">

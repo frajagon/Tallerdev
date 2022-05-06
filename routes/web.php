@@ -23,3 +23,8 @@ Route::resource('estudiante', 'App\http\Controllers\EstudianteController');
 
 Route::get('imprimirPersonas','App\http\Controllers\PdfController@imprimirPersonas')->name('imprimirPersonas');
 Route::get('imprimirEstudiantes','App\http\Controllers\PdfController@imprimirEstudiantes')->name('imprimirEstudiantes');
+
+Route::resource('asignaciond','App\http\Controllers\AsignaciondocenteController');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

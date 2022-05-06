@@ -21,12 +21,24 @@ class PersonaController extends Controller
     }
 
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->authorizeRoles(['admin','docente']);
+
         return view('persona.create');
     }
 
@@ -88,7 +100,7 @@ class PersonaController extends Controller
         $personas->email = $request->get('email');
         $personas->telefono = $request->get('telefono');
         $personas->update();
-        
+
         return Redirect::to('persona');
     }
 

@@ -206,7 +206,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
                                 <p>
                                     Estudiantes
-                                    <span class="right badge badge-danger">New</span>
+                                    <!-- <span class="right badge badge-danger">New</span> -->
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('asignaciond')}}" class="nav-link">
+                                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                                <p>
+                                    Asignaciòn Docentes
+                                    <!-- <span class="right badge badge-danger">New</span> -->
                                 </p>
                             </a>
                         </li>
@@ -244,7 +253,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Listado de estudiantes</h5>
 
                                     <p class="card-text">
                                         @yield('contenido')

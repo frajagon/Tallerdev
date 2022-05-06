@@ -1,6 +1,15 @@
 @extends('layout.plantilla')
 
 @section('contenido')
+
+<div class="row">
+    <div class="col">
+        <h5 class="card-title">Listado de personas</h5>
+    </div>
+</div>
+
+<br>
+
 <div class="row">
     <div class="col-md-9">
         <a href="{{url('persona/create')}}" class="pull-right">
