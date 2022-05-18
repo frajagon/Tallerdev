@@ -30,7 +30,7 @@
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
-                    <th>Id</th>
+                    <th>Foto</th>
                     <th>Nombres Completos</th>
                     <th>Apellidos</th>
                     <th>Documento Identidad</th>
@@ -41,7 +41,7 @@
                 <tbody>
                     @foreach($estudiantes as $estudiante)
                     <tr>
-                        <td>{{ $estudiante->id }}</td>
+                        <td><img src="{{asset('dist/img/estudiantes/estudiante-01.png')}}" alt="" width="50px"></td>
                         <td>{{ $estudiante->primer_nombre }} {{ $estudiante->segundo_nombre }}</td>
                         <td>{{ $estudiante->primer_apellido}} {{ $estudiante->segundo_apellido}}</td>
                         <td>{{ $estudiante->numero_identificacion }}</td>
