@@ -24,6 +24,7 @@ Route::resource('acudiente', 'App\http\Controllers\AcudienteController');
 
 Route::get('imprimirPersonas','App\http\Controllers\PdfController@imprimirPersonas')->name('imprimirPersonas');
 Route::get('imprimirEstudiantes','App\http\Controllers\PdfController@imprimirEstudiantes')->name('imprimirEstudiantes');
+Route::get('imprimirAcudientes','App\http\Controllers\PdfController@imprimirAcudientes')->name('imprimirAcudientes');
 
 Route::resource('asignaciond','App\http\Controllers\AsignaciondocenteController');
 Auth::routes();

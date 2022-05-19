@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Acudiente;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\AcudienteFormRequest;
 
 class AcudienteController extends Controller
 {
@@ -15,7 +16,8 @@ class AcudienteController extends Controller
      */
     public function index()
     {
-        //
+        $acudientes = Acudiente::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->paginate(10);
+        return view('acudiente.index', compact('acudientes'));
     }
 
     /**
@@ -25,7 +27,7 @@ class AcudienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('acudiente.create');
     }
 
     /**
@@ -34,9 +36,19 @@ class AcudienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AcudienteFormRequest $request)
     {
-        //
+        $acudientes = new Acudiente;
+        $acudientes->primer_nombre = $request->get('primer_nombre');
+        $acudientes->segundo_nombre = $request->get('segundo_nombre');
+        $acudientes->primer_apellido = $request->get('primer_apellido');
+        $acudientes->segundo_apellido = $request->get('segundo_apellido');
+        $acudientes->fecha_nacimiento = $request->get('fecha_nacimiento');
+        $acudientes->numero_identificacion = $request->get('numero_identificacion');
+        $acudientes->estado = $request->get('estado');
+        $acudientes->save();
+
+        return Redirect::to('acudiente');
     }
 
     /**
@@ -58,7 +70,8 @@ class AcudienteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $acudiente = Acudiente::findOrFail($id);
+        return view("acudiente.edit", ["acudiente" => $acudiente]);
     }
 
     /**
@@ -70,7 +83,19 @@ class AcudienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $acudientes = Acudiente::findOrFail($id);
+
+        $acudientes->primer_nombre = $request->get('primer_nombre');
+        $acudientes->segundo_nombre = $request->get('segundo_nombre');
+        $acudientes->primer_apellido = $request->get('primer_apellido');
+        $acudientes->segundo_apellido = $request->get('segundo_apellido');
+        $acudientes->fecha_nacimiento = $request->get('fecha_nacimiento');
+        $acudientes->numero_identificacion = $request->get('numero_identificacion');
+        $acudientes->estado = $request->get('estado');
+     
+        $acudientes->update();
+        
+        return Redirect::to('acudiente');
     }
 
     /**
@@ -81,6 +106,12 @@ class AcudienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $acudientes = Acudiente::findOrFail($id);
+        $acudientes->estado = 0;
+        $acudientes->update();
+        
+        // $acudientes->delete();
+
+        return Redirect::to('acudiente');
     }
 }

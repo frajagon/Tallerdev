@@ -3,7 +3,7 @@
 @section('contenido')
 <div class="row">
     <div class="col">
-        <h5 class="card-title">Listado de estudiantes</h5>
+        <h5 class="card-title">Listado de acudientes</h5>
     </div>
 </div>
 
@@ -11,13 +11,13 @@
 
 <div class="row">
     <div class="col-md-9">
-        <a href="{{url('estudiante/create')}}" class="pull-right">
+        <a href="{{url('acudiente/create')}}" class="pull-right">
             <button class="btn btn-success">
                 <i class="fas fa-user-plus"></i>
-                Crear Estudiante
+                Crear Acudiente
             </button>
         </a>
-        <a href="{{url('imprimirEstudiantes')}}" class="pull-right" target="_blank">
+        <a href="{{url('imprimirAcudiente')}}" class="pull-right" target="_blank">
             <button class="btn btn-success">
                 <i class="fas fa-file-pdf"></i>
                 Imprimir Pdf
@@ -30,7 +30,7 @@
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
-                    <th>Id</th>
+                    <th>Foto</th>
                     <th>Nombres Completos</th>
                     <th>Apellidos</th>
                     <th>Documento Identidad</th>
@@ -39,35 +39,35 @@
                     <th>Opciones</th>
                 </thead>
                 <tbody>
-                    @foreach($estudiantes as $estudiante)
+                    @foreach($acudientes as $acudiente)
                     <tr>
-                        <td>{{ $estudiante->id }}</td>
-                        <td>{{ $estudiante->primer_nombre }} {{ $estudiante->segundo_nombre }}</td>
-                        <td>{{ $estudiante->primer_apellido}} {{ $estudiante->segundo_apellido}}</td>
-                        <td>{{ $estudiante->numero_identificacion }}</td>
-                        <td>{{ $estudiante->fecha_nacimiento }}</td>
+                        <td><img src="{{asset('dist/img/acudientes/acudiente-01.png')}}" alt="" width="50px"></td>
+                        <td>{{ $acudiente->primer_nombre }} {{ $acudiente->segundo_nombre }}</td>
+                        <td>{{ $acudiente->primer_apellido}} {{ $acudiente->segundo_apellido}}</td>
+                        <td>{{ $acudiente->numero_identificacion }}</td>
+                        <td>{{ $acudiente->fecha_nacimiento }}</td>
                         <td>
-                            @if ($estudiante->estado == 1)
+                            @if ($acudiente->estado == 1)
                                 Activo
                             @else
                                 Inactivo
                             @endif
                         </td>
                         <td>
-                            <a href="{{URL::action('App\http\Controllers\EstudianteController@edit',$estudiante->id)}}">
+                            <a href="{{URL::action('App\http\Controllers\AcudienteController@edit',$acudiente->id)}}">
                                 <button class="btn btn-primary">
                                     <i class="fas fa-user-edit"></i>
                                     Actualizar
                                 </button></a>
 
-                            <a href="" data-target="#modal-delete-{{$estudiante->id}}" data-toggle="modal">
+                            <a href="" data-target="#modal-delete-{{$acudiente->id}}" data-toggle="modal">
                                 <button class="btn btn-danger">
                                     <i class="fas fa-user-times"></i>
                                     Inactivar
                                 </button></a>
                         </td>
                     </tr>
-                    @include('estudiante.modal')
+                    @include('acudiente.modal')
 
                     @endforeach
                 </tbody>

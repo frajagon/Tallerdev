@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Acudiente;
 use Illuminate\Http\Request;
-use App\Models\Persona;
+use App\Models\Acudientes;
 use App\Models\Estudiante;
+use App\Models\Persona;
 use PDF;
 
 class PdfController extends Controller
@@ -21,6 +23,14 @@ class PdfController extends Controller
     {
         $estudiantes = Estudiante::orderBy('id', 'ASC')->get();
         $pdf = PDF::loadView('Pdf.estudiantesPDF', ['estudiantes' => $estudiantes]);
+        $pdf->setPaper('carta', 'landscape');
+        return $pdf->stream();
+    }
+
+    public function imprimirAcudi(Request $request)
+    {
+        $acudientes = Acudiente::orderBy('id', 'ASC')->get();
+        $pdf = PDF::loadView('Pdf.acudientesPDF', ['acudientes' => $acudientes]);
         $pdf->setPaper('carta', 'landscape');
         return $pdf->stream();
     }

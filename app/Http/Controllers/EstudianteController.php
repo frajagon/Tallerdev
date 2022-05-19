@@ -106,8 +106,11 @@ class EstudianteController extends Controller
      */
     public function destroy($id)
     {
-        $estudiantes = Estudiante::findOrFail($id);
-        $estudiantes->delete();
+        $estudiante = Estudiante::findOrFail($id);
+        $estudiante->estado = 0;
+        $estudiante->update();
+        
+        // $estudiantes->delete();
 
         return Redirect::to('estudiante');
     }
