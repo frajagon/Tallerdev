@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Docente;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\DocenteFormRequest;
 
 class DocenteController extends Controller
 {
@@ -13,7 +16,8 @@ class DocenteController extends Controller
      */
     public function index()
     {
-        //
+        $docentes = Docente::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->paginate(10);
+        return view('docente.index', compact('docentes'));
     }
 
     /**
@@ -23,7 +27,7 @@ class DocenteController extends Controller
      */
     public function create()
     {
-        //
+        return view('docente.create');
     }
 
     /**
@@ -32,9 +36,19 @@ class DocenteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DocenteFormRequest $request)
     {
-        //
+        $docentes = new Docente;
+        $docentes->primer_nombre = $request->get('primer_nombre');
+        $docentes->segundo_nombre = $request->get('segundo_nombre');
+        $docentes->primer_apellido = $request->get('primer_apellido');
+        $docentes->segundo_apellido = $request->get('segundo_apellido');
+        $docentes->fecha_nacimiento = $request->get('fecha_nacimiento');
+        $docentes->numero_identificacion = $request->get('numero_identificacion');
+        $docentes->estado = $request->get('estado');
+        $docentes->save();
+
+        return Redirect::to('docente');
     }
 
     /**
@@ -56,7 +70,8 @@ class DocenteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $docente = Docente::findOrFail($id);
+        return view("docente.edit", ["docente" => $docente]);
     }
 
     /**
@@ -68,7 +83,19 @@ class DocenteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $docentes = Docente::findOrFail($id);
+
+        $docentes->primer_nombre = $request->get('primer_nombre');
+        $docentes->segundo_nombre = $request->get('segundo_nombre');
+        $docentes->primer_apellido = $request->get('primer_apellido');
+        $docentes->segundo_apellido = $request->get('segundo_apellido');
+        $docentes->fecha_nacimiento = $request->get('fecha_nacimiento');
+        $docentes->numero_identificacion = $request->get('numero_identificacion');
+        $docentes->estado = $request->get('estado');
+     
+        $docentes->update();
+        
+        return Redirect::to('docente');
     }
 
     /**
@@ -79,6 +106,12 @@ class DocenteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $docentes = Docente::findOrFail($id);
+        $docentes->estado = 0;
+        $docentes->update();
+        
+        // $docentes->delete();
+
+        return Redirect::to('docente');
     }
 }
