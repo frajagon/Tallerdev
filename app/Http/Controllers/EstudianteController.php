@@ -78,6 +78,7 @@ class EstudianteController extends Controller
     public function edit($id)
     {
         $estudiante = Estudiante::findOrFail($id);
+        // dd($estudiante);
         return view("estudiante.edit", ["estudiante" => $estudiante]);
     }
 
