@@ -10,5 +10,35 @@ class Estudiante extends Model
     use HasFactory;
 
     public $timestamps = true;
-    protected $fillable = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'fecha_nacimiento', 'numero_identificacion', 'estado'];
+    protected $fillable = [
+        'primer_nombre',
+        'segundo_nombre',
+        'primer_apellido',
+        'segundo_apellido',
+        'fecha_nacimiento',
+        'numero_identificacion',
+        'estado'
+    ];
+
+    //Relacion con la tabla Acudiente
+    public function acudiente()
+    {
+        // return $this->belongsTo('App\Models\Acudiente');
+        return $this->belongsTo(Acudiente::class);
+    }
+
+    public function getGetNombresAttribute()
+    {
+        return $this->primer_nombre . ' ' . $this->segundo_nombre;
+    }
+
+    public function getGetApellidosAttribute()
+    {
+        return $this->primer_apellido . ' ' . $this->segundo_apellido;
+    }
+
+    public function setPrimerNombreAttribute($value)
+    {
+        $this->attributes['primer_nombre'] = ucfirst(strtolower($value));
+    }
 }

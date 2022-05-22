@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Estudiante;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\EstudianteFormRequest;
+use App\Models\Acudiente;
 
 class EstudianteController extends Controller
 {
@@ -16,8 +17,10 @@ class EstudianteController extends Controller
      */
     public function index()
     {
-        $estudiantes = Estudiante::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->paginate(10);
-        return view('estudiante.index', compact('estudiantes'));
+        // $estudiantes = Estudiante::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->paginate(10);
+        // return view('estudiante.index', compact('estudiantes'));
+        $estudiantes = Estudiante::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->get();
+        return view('estudiante.index', ['estudiantes' => $estudiantes]);
     }
 
     /**
@@ -27,7 +30,9 @@ class EstudianteController extends Controller
      */
     public function create()
     {
-        return view('estudiante.create');
+        $acudientes = Acudiente::all();
+
+        return view("estudiante.create", ["acudientes" => $acudientes]);
     }
 
     /**
@@ -53,6 +58,7 @@ class EstudianteController extends Controller
         $estudiantes->fecha_nacimiento = $request->get('fecha_nacimiento');
         $estudiantes->numero_identificacion = $request->get('numero_identificacion');
         $estudiantes->estado = $request->get('estado');
+        $estudiantes->id_acudiente = $request->get('id_acudiente');
         $estudiantes->save();
 
         return Redirect::to('estudiante');
@@ -78,8 +84,17 @@ class EstudianteController extends Controller
     public function edit($id)
     {
         $estudiante = Estudiante::findOrFail($id);
-        // dd($estudiante);
-        return view("estudiante.edit", ["estudiante" => $estudiante]);
+        $acudientes = Acudiente::all();
+
+        //dd($acudientes);
+        // dd($acudientes->toArray());
+        //dd($acudientes->contains('4'));
+        //dd($acudientes->except([1,2,3]));
+        //dd($acudientes->only(4));
+        //dd($acudientes->find(4)); //Busca solamente el id 4
+        //dd($acudientes->load('acudiente'));//Carga
+
+        return view("estudiante.edit", ["estudiante" => $estudiante, "acudientes" => $acudientes]);
     }
 
     /**
@@ -100,9 +115,10 @@ class EstudianteController extends Controller
         $estudiantes->fecha_nacimiento = $request->get('fecha_nacimiento');
         $estudiantes->numero_identificacion = $request->get('numero_identificacion');
         $estudiantes->estado = $request->get('estado');
-     
+        $estudiantes->id_acudiente = $request->get('id_acudiente');
+
         $estudiantes->update();
-        
+
         return Redirect::to('estudiante');
     }
 
@@ -117,7 +133,7 @@ class EstudianteController extends Controller
         $estudiante = Estudiante::findOrFail($id);
         $estudiante->estado = 0;
         $estudiante->update();
-        
+
         // $estudiantes->delete();
 
         return Redirect::to('estudiante');

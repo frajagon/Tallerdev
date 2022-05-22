@@ -35,6 +35,7 @@
                     <th>Apellidos</th>
                     <th>Documento Identidad</th>
                     <th>Fecha Nacimiento</th>
+                    <th>Acudiente</th>
                     <th>Estado</th>
                     <th>Opciones</th>
                 </thead>
@@ -42,10 +43,15 @@
                     @foreach($estudiantes as $estudiante)
                     <tr>
                         <td>{{ $estudiante->id }}</td>
-                        <td>{{ $estudiante->primer_nombre }} {{ $estudiante->segundo_nombre }}</td>
-                        <td>{{ $estudiante->primer_apellido}} {{ $estudiante->segundo_apellido}}</td>
+                        <td>{{ $estudiante->get_nombres }}</td>
+                        <td>{{ $estudiante->get_apellidos}}</td>
                         <td>{{ $estudiante->numero_identificacion }}</td>
                         <td>{{ $estudiante->fecha_nacimiento }}</td>
+                        <td>
+                            @if ($estudiante->id_acudiente)
+                               $estudiante->acudiente->primer_nombre
+                            @endif
+                        </td>
                         <td>
                             @if ($estudiante->estado == 1)
                                 Activo

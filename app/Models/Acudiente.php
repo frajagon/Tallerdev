@@ -21,4 +21,27 @@ class Acudiente extends Model
         'numero_identificacion',
         'estado'
     ];
+
+    //Relacion con la tabla Asiganacion estudiantes
+    public function estudiantes()
+    {
+        // return $this->hasMany('App\Models\Estudiante');
+        return $this->hasMany(Estudiante::class);
+    }
+
+
+    public function getGetNombresAttribute()
+    {
+        return $this->primer_nombre . ' ' . $this->segundo_nombre;
+    }
+
+    public function getGetApellidosAttribute()
+    {
+        return $this->primer_apellido . ' ' . $this->segundo_apellido;
+    }
+
+    public function setPrimerNombreAttribute($value)
+    {
+        $this->attributes['primer_nombre'] = ucfirst(strtolower($value));
+    }
 }

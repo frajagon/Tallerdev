@@ -18,7 +18,7 @@
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <img src="{{asset('dist/img/estudiantes/prueba-01.png')}}" alt="" width="100%">
-        <input type="file"  class="form-control" value="">
+        <input type="file" class="form-control" value="">
     </div>
     <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
         <div class="row">
@@ -89,8 +89,16 @@
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="estado">Acudiente</label>
-                    <select class="form-select form-control" aria-label="Default select example">
-                        <option selected="selected">Martha Gonzalez Rengifo</option>
+                    <select class="form-select form-control" aria-label="Default select example" name="id_acudiente" id="id_acudiente">
+                        <option selected="selected">Seleccione un acudiente</option>
+
+                        @foreach($acudientes as $acudiente)
+                            <option value="{{$acudiente->id}}" 
+                                @if ($estudiante->id_acudiente == $acudiente->id) selected="selected" @endif 
+                            >
+                                {{$acudiente->primer_nombre}} {{$acudiente->segundo_nombre}} {{$acudiente->primer_apellido}} {{$acudiente->segundo_apellido}}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -103,7 +111,7 @@
                     </select>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
