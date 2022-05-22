@@ -38,6 +38,13 @@ class EstudianteController extends Controller
      */
     public function store(EstudianteFormRequest $request)
     {
+
+        // $request->validate([
+        //     'primer_nombre' => 'required',
+        //     'email' => ['required', 'email', 'unique:estudiantes'],
+        //     'password' => ['required', 'min:8'],
+        // ]);
+
         $estudiantes = new Estudiante;
         $estudiantes->primer_nombre = $request->get('primer_nombre');
         $estudiantes->segundo_nombre = $request->get('segundo_nombre');
@@ -81,7 +88,7 @@ class EstudianteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EstudianteFormRequest $request, $id)
     {
         $estudiantes = Estudiante::findOrFail($id);
 

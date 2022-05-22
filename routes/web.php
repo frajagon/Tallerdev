@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->middleware('auth');
 
-Route::resource('persona', 'App\http\Controllers\PersonaController');
-Route::resource('estudiante', 'App\http\Controllers\EstudianteController');
-Route::resource('acudiente', 'App\http\Controllers\AcudienteController');
-Route::resource('docente', 'App\http\Controllers\DocenteController');
-Route::resource('gradoacademico', 'App\http\Controllers\GradoAcademicoController');
+Route::resource('persona', 'App\http\Controllers\PersonaController')->middleware('auth');
+Route::resource('estudiante', 'App\http\Controllers\EstudianteController')->middleware('auth');
+Route::resource('acudiente', 'App\http\Controllers\AcudienteController')->middleware('auth');
+Route::resource('docente', 'App\http\Controllers\DocenteController')->middleware('auth');
+Route::resource('gradoacademico', 'App\http\Controllers\GradoAcademicoController')->middleware('auth');
 
 Route::get('imprimirPersonas','App\http\Controllers\PdfController@imprimirPersonas')->name('imprimirPersonas');
 Route::get('imprimirEstudiantes','App\http\Controllers\PdfController@imprimirEstudiantes')->name('imprimirEstudiantes');
