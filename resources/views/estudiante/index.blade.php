@@ -58,14 +58,14 @@
                         <td>{{ $estudiante->fecha_nacimiento }}</td>
                         <td>
                             @if ($estudiante->id_acudiente)
-                            $estudiante->acudiente->primer_nombre
+                                {{$estudiante->acudiente->get_nombre_completo}} 
                             @endif
                         </td>
                         <td>
                             @if ($estudiante->estado == 1)
-                            Activo
+                              Activo
                             @else
-                            Inactivo
+                               Inactivo
                             @endif
                         </td>
                         <td>

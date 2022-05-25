@@ -23,8 +23,7 @@ class Estudiante extends Model
     //Relacion con la tabla Acudiente
     public function acudiente()
     {
-        // return $this->belongsTo('App\Models\Acudiente');
-        return $this->belongsTo(Acudiente::class);
+        return $this->belongsTo(Acudiente::class, "id_acudiente");
     }
 
     public function getGetNombresAttribute()
@@ -35,6 +34,11 @@ class Estudiante extends Model
     public function getGetApellidosAttribute()
     {
         return $this->primer_apellido . ' ' . $this->segundo_apellido;
+    }
+
+    public function getGetNombreCompletoAttribute()
+    {
+        return $this->primer_nombre . ' ' . $this->segundo_nombre . ' ' . $this->primer_apellido . ' ' . $this->segundo_apellido;
     }
 
     public function setPrimerNombreAttribute($value)
