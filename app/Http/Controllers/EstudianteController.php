@@ -16,7 +16,7 @@ class EstudianteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // $estudiantes = Estudiante::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->paginate(10);
         // return view('estudiante.index', compact('estudiantes'));
@@ -26,8 +26,33 @@ class EstudianteController extends Controller
         // $estudiantes = Estudiante::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->get();
         // $estudiantes = Estudiante::orderBy('primer_nombre', 'ASC')->orderBy('primer_apellido', 'ASC')->simplePaginate(7);
         // $estudiantes = Estudiante::orderBy('primer_nombre', 'ASC')->orderBy('primer_apellido', 'ASC')->cursorPaginate(7);
-        $estudiantes = Estudiante::orderBy('primer_nombre', 'ASC')->orderBy('primer_apellido', 'ASC')->paginate(7);
-        return view('estudiante.index', ['estudiantes' => $estudiantes]);
+        // <!-- {{Form::open(array('route'=> 'estudiante', 'method'=>'GET', 'files'=>true))}} -->
+
+        $identificacion = $request->get('identificacion');
+        $nombres = $request->get('nombres');
+        $apellidos = $request->get('apellidos');
+
+        // if ($numero_identificacion)
+        //     dd($request);
+
+        // dd($numero_identificacion);
+
+
+
+        $estudiantes = Estudiante::orderBy('primer_nombre', 'ASC')
+            ->numeroIdentificacion($identificacion)
+            ->nombres($nombres)
+            ->apellidos($apellidos)
+            ->orderBy('primer_apellido', 'ASC')
+            ->paginate(7);
+        return view('estudiante.index', [
+            'estudiantes' => $estudiantes,
+            'filtros' => [
+                'identificacion' => $identificacion,
+                'nombres' => $nombres,
+                'apellidos' => $apellidos,
+            ]
+        ]);
     }
 
     /**
@@ -67,12 +92,12 @@ class EstudianteController extends Controller
         $estudiantes->estado = $request->get('estado');
 
         if ($request->hasFile('imagen'))
-            $estudiantes->imagen = $request->file('imagen')->store('dist/img/estudiantes','public');
-        if(intval($request->get('id_acudiente')))
+            $estudiantes->imagen = $request->file('imagen')->store('dist/img/estudiantes', 'public');
+        if (intval($request->get('id_acudiente')))
             $estudiantes->id_acudiente = $request->get('id_acudiente');
-        if(intval($request->get('id_genero')))
+        if (intval($request->get('id_genero')))
             $estudiantes->id_genero = $request->get('id_genero');
-        
+
         $estudiantes->save();
 
         return Redirect::to('estudiante');
@@ -134,12 +159,12 @@ class EstudianteController extends Controller
         $estudiantes->fecha_nacimiento = $request->get('fecha_nacimiento');
         $estudiantes->numero_identificacion = $request->get('numero_identificacion');
         $estudiantes->estado = $request->get('estado');
-        
+
         if ($request->hasFile('imagen'))
-            $estudiantes->imagen = $request->file('imagen')->store('dist/img/estudiantes','public');
-        if(intval($request->get('id_acudiente')))
+            $estudiantes->imagen = $request->file('imagen')->store('dist/img/estudiantes', 'public');
+        if (intval($request->get('id_acudiente')))
             $estudiantes->id_acudiente = $request->get('id_acudiente');
-        if(intval($request->get('id_genero')))
+        if (intval($request->get('id_genero')))
             $estudiantes->id_genero = $request->get('id_genero');
 
         $estudiantes->update();

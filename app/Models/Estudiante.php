@@ -45,4 +45,25 @@ class Estudiante extends Model
     {
         $this->attributes['primer_nombre'] = ucfirst(strtolower($value));
     }
+
+    public function scopeNumeroIdentificacion($query, $numero_identificacion)
+    {
+        if($numero_identificacion)
+            return  $query->where('numero_identificacion', 'LIKE', "%$numero_identificacion%");
+
+    }
+
+    public function scopeNombres($query, $valor)
+    {
+        if($valor)
+            return  $query->where('primer_nombre', 'LIKE', "%$valor%");
+
+    }
+
+    public function scopeApellidos($query, $valor)
+    {
+        if($valor)
+            return  $query->where('primer_apellido', 'LIKE', "%$valor%");
+
+    }
 }

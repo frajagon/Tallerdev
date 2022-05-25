@@ -43,6 +43,30 @@
                     <th>Opciones</th>
                 </thead>
                 <tbody>
+
+
+
+                    {{ Form::open(array('route'=> 'estudiante.index', 'method'=>'GET', 'class'=>'form-inline pull-right')) }}
+                    <tr>
+                        <td></td>
+                        <td>
+                            {{ Form::text('nombres', $filtros['nombres'], ['class'=>'form-control', 'placeholder'=>'Nombres' ]) }}
+                        </td>
+                        <td>
+                            {{ Form::text('apellidos', $filtros['apellidos'], ['class'=>'form-control', 'placeholder'=>'Apellidos' ]) }}
+                        </td>
+                        <td>
+                            {{ Form::text('identificacion', $filtros['identificacion'], ['class'=>'form-control', 'placeholder'=>'Identificaciòn' ]) }}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-refresh"></span> Buscar</button>
+                        </td>
+                    </tr>
+                    {{ Form::close() }}
+
                     @foreach($estudiantes as $estudiante)
                     <tr>
                         <td>
@@ -58,14 +82,14 @@
                         <td>{{ $estudiante->fecha_nacimiento }}</td>
                         <td>
                             @if ($estudiante->id_acudiente)
-                                {{$estudiante->acudiente->get_nombre_completo}} 
+                            {{$estudiante->acudiente->get_nombre_completo}}
                             @endif
                         </td>
                         <td>
                             @if ($estudiante->estado == 1)
-                              Activo
+                            Activo
                             @else
-                               Inactivo
+                            Inactivo
                             @endif
                         </td>
                         <td>
