@@ -14,14 +14,14 @@
         @endif
     </div>
 </div>
-{!!Form::open(array('url'=>'estudiante','method'=>'POST','autocomplete'=>'off')
+{!!Form::open(array('url'=>'estudiante','method'=>'POST','autocomplete'=>'off', 'files'=>true)
 )!!}
 {{Form::token()}}
 <div class="row">
 
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <img src="{{asset('dist/img/estudiantes/prueba-01.png')}}" alt="" width="100%">
-        <input type="file"  class="form-control" value="">
+        <input type="file" class="form-control" name="imagen" id="imagen" value="">
     </div>
     <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
         <div class="row">

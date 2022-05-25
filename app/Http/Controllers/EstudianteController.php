@@ -7,6 +7,7 @@ use App\Models\Estudiante;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\EstudianteFormRequest;
 use App\Models\Acudiente;
+use App\Models\Genero;
 
 class EstudianteController extends Controller
 {
@@ -19,7 +20,13 @@ class EstudianteController extends Controller
     {
         // $estudiantes = Estudiante::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->paginate(10);
         // return view('estudiante.index', compact('estudiantes'));
-        $estudiantes = Estudiante::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->get();
+
+        // $estudiantes = Estudiante::with('user')->latest()->paginate();
+
+        // $estudiantes = Estudiante::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->get();
+        // $estudiantes = Estudiante::orderBy('primer_nombre', 'ASC')->orderBy('primer_apellido', 'ASC')->simplePaginate(7);
+        // $estudiantes = Estudiante::orderBy('primer_nombre', 'ASC')->orderBy('primer_apellido', 'ASC')->cursorPaginate(7);
+        $estudiantes = Estudiante::orderBy('primer_nombre', 'ASC')->orderBy('primer_apellido', 'ASC')->paginate(7);
         return view('estudiante.index', ['estudiantes' => $estudiantes]);
     }
 
@@ -58,7 +65,14 @@ class EstudianteController extends Controller
         $estudiantes->fecha_nacimiento = $request->get('fecha_nacimiento');
         $estudiantes->numero_identificacion = $request->get('numero_identificacion');
         $estudiantes->estado = $request->get('estado');
-        $estudiantes->id_acudiente = $request->get('id_acudiente');
+
+        if ($request->hasFile('imagen'))
+            $estudiantes->imagen = $request->file('imagen')->store('dist/img/estudiantes','public');
+        if(intval($request->get('id_acudiente')))
+            $estudiantes->id_acudiente = $request->get('id_acudiente');
+        if(intval($request->get('id_genero')))
+            $estudiantes->id_genero = $request->get('id_genero');
+        
         $estudiantes->save();
 
         return Redirect::to('estudiante');
@@ -85,6 +99,7 @@ class EstudianteController extends Controller
     {
         $estudiante = Estudiante::findOrFail($id);
         $acudientes = Acudiente::all();
+        $generos = Genero::all();
 
         //dd($acudientes);
         // dd($acudientes->toArray());
@@ -94,7 +109,11 @@ class EstudianteController extends Controller
         //dd($acudientes->find(4)); //Busca solamente el id 4
         //dd($acudientes->load('acudiente'));//Carga
 
-        return view("estudiante.edit", ["estudiante" => $estudiante, "acudientes" => $acudientes]);
+        return view("estudiante.edit", [
+            "estudiante" => $estudiante,
+            "acudientes" => $acudientes,
+            "generos" => $generos,
+        ]);
     }
 
     /**
@@ -115,7 +134,13 @@ class EstudianteController extends Controller
         $estudiantes->fecha_nacimiento = $request->get('fecha_nacimiento');
         $estudiantes->numero_identificacion = $request->get('numero_identificacion');
         $estudiantes->estado = $request->get('estado');
-        $estudiantes->id_acudiente = $request->get('id_acudiente');
+        
+        if ($request->hasFile('imagen'))
+            $estudiantes->imagen = $request->file('imagen')->store('dist/img/estudiantes','public');
+        if(intval($request->get('id_acudiente')))
+            $estudiantes->id_acudiente = $request->get('id_acudiente');
+        if(intval($request->get('id_genero')))
+            $estudiantes->id_genero = $request->get('id_genero');
 
         $estudiantes->update();
 

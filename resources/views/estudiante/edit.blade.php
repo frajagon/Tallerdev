@@ -14,11 +14,17 @@
         @endif
     </div>
 </div>
-{{Form::open(array('action'=>array('App\http\Controllers\EstudianteController@update', $estudiante->id),'method'=>'patch'))}}
+{{Form::open(array('action'=>array('App\http\Controllers\EstudianteController@update', $estudiante->id),'method'=>'patch', 'files'=>true))}}
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+        
+        @if($estudiante->imagen)
+        <img src="{{asset('../storage/app/public/'.$estudiante->imagen)}}" alt="" width="100%">
+        @else
         <img src="{{asset('dist/img/estudiantes/prueba-01.png')}}" alt="" width="100%">
-        <input type="file" class="form-control" value="">
+        @endif
+        <input type="file" class="form-control" name="imagen" id="imagen" value="">
     </div>
     <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
         <div class="row">
@@ -44,6 +50,21 @@
                 <div class="form-group">
                     <label for="segundo_apellido">Segundo Apellido</label>
                     <input type="text" name="segundo_apellido" id="segundo_apellido" class="form-control" value="{{$estudiante->segundo_apellido}}" placeholder="Segundo apellido">
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="genero">Sexo</label>
+                    <select class="form-select form-control" aria-label="Default select example" name="id_genero" id="id_genero">
+                        <option selected="selected">Seleccione una opción</option>
+
+                        @foreach($generos as $genero)
+                        <option value="{{$genero->id}}" @if ($estudiante->id_genero == $genero->id) selected="selected" @endif
+                            >
+                            {{$genero->nombre}}
+                        </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
@@ -93,11 +114,10 @@
                         <option selected="selected">Seleccione un acudiente</option>
 
                         @foreach($acudientes as $acudiente)
-                            <option value="{{$acudiente->id}}" 
-                                @if ($estudiante->id_acudiente == $acudiente->id) selected="selected" @endif 
+                        <option value="{{$acudiente->id}}" @if ($estudiante->id_acudiente == $acudiente->id) selected="selected" @endif
                             >
-                                {{$acudiente->primer_nombre}} {{$acudiente->segundo_nombre}} {{$acudiente->primer_apellido}} {{$acudiente->segundo_apellido}}
-                            </option>
+                            {{$acudiente->primer_nombre}} {{$acudiente->segundo_nombre}} {{$acudiente->primer_apellido}} {{$acudiente->segundo_apellido}}
+                        </option>
                         @endforeach
                     </select>
                 </div>

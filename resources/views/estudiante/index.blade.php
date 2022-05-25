@@ -24,13 +24,16 @@
             </button>
         </a>
     </div>
+    <div class="col-md-3  nav justify-content-end">
+        Total de estudiantes: {{ $estudiantes->total() }}
+    </div>
 </div>
 <div class="row">
     <div class="col-md-12 col-xs-9">
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
-                    <th>Id</th>
+                    <th>Foto</th>
                     <th>Nombres Completos</th>
                     <th>Apellidos</th>
                     <th>Documento Identidad</th>
@@ -42,21 +45,27 @@
                 <tbody>
                     @foreach($estudiantes as $estudiante)
                     <tr>
-                        <td>{{ $estudiante->id }}</td>
+                        <td>
+                            @if($estudiante->imagen)
+                            <img class="table-avatar" src="{{asset('../storage/app/public/'.$estudiante->imagen)}}" alt="" width="50px">
+                            @else
+                            <img class="table-avatar" src="{{asset('dist/img/estudiantes/prueba-01.png')}}" alt="" width="50px">
+                            @endif
+                        </td>
                         <td>{{ $estudiante->get_nombres }}</td>
                         <td>{{ $estudiante->get_apellidos}}</td>
                         <td>{{ $estudiante->numero_identificacion }}</td>
                         <td>{{ $estudiante->fecha_nacimiento }}</td>
                         <td>
                             @if ($estudiante->id_acudiente)
-                               $estudiante->acudiente->primer_nombre
+                            $estudiante->acudiente->primer_nombre
                             @endif
                         </td>
                         <td>
                             @if ($estudiante->estado == 1)
-                                Activo
+                            Activo
                             @else
-                                Inactivo
+                            Inactivo
                             @endif
                         </td>
                         <td>
@@ -78,7 +87,21 @@
                     @endforeach
                 </tbody>
             </table>
+
+            <!-- <table>
+                <tr>
+                    </td>
+                    {{ $estudiantes->links() }}
+                    </td>
+                </tr>
+            </table> -->
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-xs-9">
+        {{ $estudiantes->links() }}
     </div>
 </div>
 @endsection
