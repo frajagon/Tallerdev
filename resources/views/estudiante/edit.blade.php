@@ -17,8 +17,6 @@
 {{Form::open(array('action'=>array('App\http\Controllers\EstudianteController@update', $estudiante->id),'method'=>'patch', 'files'=>true))}}
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-
-        
         @if($estudiante->imagen)
         <img src="{{asset('../storage/app/public/'.$estudiante->imagen)}}" alt="" width="100%">
         @else

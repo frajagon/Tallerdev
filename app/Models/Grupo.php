@@ -5,19 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GradoAcademico extends Model
+class Grupo extends Model
 {
     use HasFactory;
 
     public $timestamps = true;
     protected $fillable = [
+        'codigo',
         'nombre',
-        'descripcion',
-        'orden',
         'estado'
     ];
-
-    protected $table = 'grados_academicos';
 
     //Relacion con la tabla GradoAcademicoPeriodo
     public function gradoacademicoperiodos()

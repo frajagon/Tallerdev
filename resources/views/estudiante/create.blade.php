@@ -96,12 +96,13 @@
                         <option selected="selected">Seleccione un acudiente</option>
 
                         @foreach($acudientes as $acudiente)
-                            <option value="{{$acudiente->id}}">
-                                {{$acudiente->primer_nombre}} {{$acudiente->segundo_nombre}} {{$acudiente->primer_apellido}} {{$acudiente->segundo_apellido}}
-                            </option>
+                        <option value="{{$acudiente->id}}">
+                            {{$acudiente->primer_nombre}} {{$acudiente->segundo_nombre}} {{$acudiente->primer_apellido}} {{$acudiente->segundo_apellido}}
+                        </option>
                         @endforeach
                     </select>
                 </div>
+            </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="estado">Estado</label>

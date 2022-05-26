@@ -21,4 +21,10 @@ class Docente extends Model
         'numero_identificacion',
         'estado'
     ];
+
+    //Relacion con la tabla GradoAcademicoPeriodo
+    public function gradoacademicoperiodos()
+    {
+        return $this->hasMany(GradoAcademicoPeriodo::class, "id");
+    }
 }

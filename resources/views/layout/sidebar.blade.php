@@ -128,6 +128,22 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{url('grupo')}}" class="nav-link">
+                        <i class="nav-icon fas fa-graduation-cap"></i>
+                        <p>
+                            Grupos
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('gradoacademicoperiodo')}}" class="nav-link">
+                        <i class="nav-icon fas fa-graduation-cap"></i>
+                        <p>
+                            Grupos - Periodos Academicos
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{url('horarioatencion')}}" class="nav-link">
                         <i class="nav-icon far fa-clock"></i>
                         <p>
