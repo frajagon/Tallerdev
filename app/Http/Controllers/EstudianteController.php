@@ -44,7 +44,7 @@ class EstudianteController extends Controller
             ->nombres($nombres)
             ->apellidos($apellidos)
             ->orderBy('primer_apellido', 'ASC')
-            ->paginate(7);
+            ->paginate(10);
         return view('estudiante.index', [
             'estudiantes' => $estudiantes,
             'filtros' => [

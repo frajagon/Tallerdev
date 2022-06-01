@@ -19,10 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `appdev`
+-- Base de datos: `proyecto_integrador`
 --
-CREATE DATABASE IF NOT EXISTS `appdev` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `appdev`;
+CREATE DATABASE IF NOT EXISTS `proyecto_integrador` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `proyecto_integrador`;
 
 -- --------------------------------------------------------
 

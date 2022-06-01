@@ -86,12 +86,12 @@
 
 
 
+                
                 <li class="nav-item">
-                    <a href="{{url('estudiante')}}" class="nav-link">
-                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                    <a href="{{url('docente')}}" class="nav-link">
+                        <i class="nav-icon fas fa-user-tie"></i>
                         <p>
-                            Estudiantes
-                            <!-- <span class="right badge badge-danger">New</span> -->
+                            Docentes
                         </p>
                     </a>
                 </li>
@@ -104,10 +104,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('docente')}}" class="nav-link">
-                        <i class="nav-icon fas fa-user-tie"></i>
+                    <a href="{{url('estudiante')}}" class="nav-link">
+                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
                         <p>
-                            Docentes
+                            Estudiantes
+                            <!-- <span class="right badge badge-danger">New</span> -->
                         </p>
                     </a>
                 </li>

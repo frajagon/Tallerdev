@@ -44,8 +44,6 @@
                 </thead>
                 <tbody>
 
-
-
                     {{ Form::open(array('route'=> 'estudiante.index', 'method'=>'GET', 'class'=>'form-inline pull-right')) }}
                     <tr>
                         <td></td>

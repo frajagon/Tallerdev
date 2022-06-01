@@ -14,10 +14,27 @@ class DocenteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $docentes = Docente::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->paginate(10);
-        return view('docente.index', compact('docentes'));
+        $identificacion = $request->get('identificacion');
+        $nombres = $request->get('nombres');
+        $apellidos = $request->get('apellidos');
+
+        $docentes = Docente::orderBy('primer_nombre', 'ASC')
+            ->numeroIdentificacion($identificacion)
+            ->nombres($nombres)
+            ->apellidos($apellidos)
+            ->orderBy('primer_apellido', 'ASC')
+            ->paginate(10);
+            
+        return view('docente.index', [
+            'docentes' => $docentes,
+            'filtros' => [
+                'identificacion' => $identificacion,
+                'nombres' => $nombres,
+                'apellidos' => $apellidos,
+            ]
+        ]);
     }
 
     /**
