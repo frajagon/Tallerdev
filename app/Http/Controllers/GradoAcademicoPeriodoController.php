@@ -7,7 +7,9 @@ use App\Models\GradoAcademicoPeriodo;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\GradoAcademicoPeriodoFormRequest;
 use App\Models\Docente;
+use App\Models\Estudiante;
 use App\Models\GradoAcademico;
+use App\Models\GradoAcademicoPeriodoDetalle;
 use App\Models\Grupo;
 
 class GradoAcademicoPeriodoController extends Controller
@@ -90,12 +92,22 @@ class GradoAcademicoPeriodoController extends Controller
         $docentes = Docente::all();
         $grados = GradoAcademico::all();
         $grupos = Grupo::all();
-                
+        $estudiantes = Estudiante::all()->where('estado', 1);
+        $estudiantesGrupo = GradoAcademicoPeriodoDetalle::all()->where('id_grado_academico_periodo', $id);
+        $capacidad = 30;
+        $total = count($estudiantesGrupo);
+        $complemento = count($estudiantes) < $capacidad - $total ? count($estudiantes) : $capacidad;
+
         return view("gradoacademicoperiodo.edit", [
             "gradoacademico" => $gradoacademico,
             "docentes" => $docentes,
             "grados" => $grados,
             "grupos" => $grupos,
+            "estudiantes" => $estudiantes,
+            "estudiantesGrupos" => $estudiantesGrupo,
+            "total" => $total,
+            "complemento" => $complemento,
+            "indice" => 0,
         ]);
     }
 
@@ -109,7 +121,7 @@ class GradoAcademicoPeriodoController extends Controller
     public function update(Request $request, $id)
     {
         $gradoacademicos = GradoAcademicoPeriodo::findOrFail($id);
-        
+
         $gradoacademicos->nombre = $request->get('nombre');
         $gradoacademicos->fecha_inicio = $request->get('fecha_inicio');
         $gradoacademicos->fecha_fin = $request->get('fecha_fin');
@@ -117,9 +129,32 @@ class GradoAcademicoPeriodoController extends Controller
         $gradoacademicos->id_docente = $request->get('id_docente');
         $gradoacademicos->id_grado_academico = $request->get('id_grado_academico');
         $gradoacademicos->id_grupo = $request->get('id_grupo');
-     
+
         $gradoacademicos->update();
-        
+
+        $estudiantes = $request->get('estudiantes');
+
+        $gapd = GradoAcademicoPeriodoDetalle::onlyTrashed()->where('id_grado_academico_periodo',$id)->get();
+
+        if (count($estudiantes) > 0) {
+            $datos = [];
+            foreach ($estudiantes as $estudiante) {
+                if ($estudiante > 0)
+                    $datos[$estudiante] = $estudiante;
+            }
+
+            if (count($datos) > 0) {
+                foreach ($datos as $estudiante_id) {
+                    $registro = new GradoAcademicoPeriodoDetalle();
+                    $registro->id_grado_academico_periodo = $id;
+                    $registro->id_estudiante = $estudiante_id;
+                    $registro->estado = 1;
+
+                    $registro->save();
+                }
+            }
+        }
+
         return Redirect::to('gradoacademicoperiodo');
     }
 

@@ -25,9 +25,9 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <th>Nombre</th>
-                    <th>Docente</th>
                     <th>Grado Academico</th>
                     <th>Grupo</th>
+                    <th>Docente</th>
                     <th>Fecha Inicio</th>
                     <th>Fecha Fin</th>
                     <th>Estado</th>
@@ -37,9 +37,9 @@
                     @foreach($gradoacademicos as $gradoacademico)
                     <tr>
                         <td>{{ $gradoacademico->nombre }}</td>
-                        <td>{{ $gradoacademico->docente->get_nombre_completo }}</td>
                         <td>{{ $gradoacademico->gradosacademicos->nombre }}</td>
                         <td>{{ $gradoacademico->grupo->nombre }}</td>
+                        <td>{{ $gradoacademico->docente->get_nombre_completo }}</td>
                         <td>{{ $gradoacademico->fecha_inicio}}</td>
                         <td>{{ $gradoacademico->fecha_fin }}</td>
                         <td>

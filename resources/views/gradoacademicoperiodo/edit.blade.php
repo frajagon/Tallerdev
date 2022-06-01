@@ -2,7 +2,7 @@
 @section ('contenido')
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <h3>Editar grado academico</h3>
+        <h3>Editar periodo academico </h3>
         @if (count($errors)>0)
         <div class="alert alert-danger">
             <ul>
@@ -16,7 +16,7 @@
 </div>
 {{Form::open(array('action'=>array('App\http\Controllers\GradoAcademicoPeriodoController@update', $gradoacademico->id),'method'=>'patch'))}}
 <div class="row">
-<div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
+    <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
         <div class="form-group">
             <label for="estado">Docente</label>
             <select class="form-select form-control" aria-label="Default select example" name="id_docente" id="id_docente">
@@ -96,6 +96,64 @@
             <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-refresh"></span> Actualizar
             </button>
             <a class="btn btn-info" type="reset" href="{{url('gradoacademicoperiodo')}}"><span class="glyphicon glyphicon-home"></span> Regresar </a>
+        </div>
+    </div>
+</div>
+
+<BR></BR>
+
+<div class="row">
+    <div class="col">
+
+        <h3>Estudiantes del periodo academico por grado</h3>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <tbody>
+                    @if (count($estudiantesGrupos) > 0)
+                    @foreach($estudiantesGrupos as $estudianteGrupo)
+                    <tr>
+                        <td class="text-center" width="10px">{{ ($indice++) +1}}</td>
+                        <td>
+                            <select class="form-select form-control" aria-label="Default select example" name="estudiantes[{{$indice}}]" id="estudiante_{{$indice}}">
+                                <option selected="selected" value="0">Seleccione un estudiante {{$estudianteGrupo->id_estudiante }}</option>
+                                @foreach($estudiantes as $estudiante)
+                                <option value="{{$estudiante->id}}" @if ($estudianteGrupo->id_estudiante == $estudiante->id) selected="selected" @endif >
+                                    {{ $estudiante->get_nombre_completo }}
+                                    -
+                                    {{ $estudiante->numero_identificacion }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @endif
+
+
+                    @if ($complemento > 0)
+                    
+                    @for ($i = $indice+1; $i <= $complemento; $i++) <div class="row">
+                        <tr>
+                            <td class="text-center" width="10px">{{ $i + 1}}</td>
+                            <td>
+
+                                <select class="form-select form-control" aria-label="Default select example" name="estudiantes[{{$i}}]" id="estudiante_{{$i}}">
+                                    <option selected="selected" value="0">Seleccione un estudiante</option>
+                                    @foreach($estudiantes as $estudiante)
+                                    <option value="{{$estudiante->id}}" @if ($gradoacademico->id_estudiante == $estudiante->id) selected="selected" @endif >
+                                        {{ $estudiante->get_nombre_completo }}
+                                        -
+                                        {{ $estudiante->numero_identificacion }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            @endfor
+                            @endif
+                </tbody>
+
+            </table>
         </div>
     </div>
 </div>
