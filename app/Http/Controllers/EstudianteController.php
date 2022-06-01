@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\EstudianteFormRequest;
 use App\Models\Acudiente;
 use App\Models\Genero;
+use App\Models\GradoAcademico;
+use App\Models\GradoAcademicoPeriodo;
 
 class EstudianteController extends Controller
 {
@@ -125,6 +127,7 @@ class EstudianteController extends Controller
         $estudiante = Estudiante::findOrFail($id);
         $acudientes = Acudiente::all();
         $generos = Genero::all();
+        $gradosAcademicos = GradoAcademicoPeriodo::all()->where('estado',1);
 
         //dd($acudientes);
         // dd($acudientes->toArray());
@@ -138,6 +141,7 @@ class EstudianteController extends Controller
             "estudiante" => $estudiante,
             "acudientes" => $acudientes,
             "generos" => $generos,
+            "gradosAcademicos" => $gradosAcademicos,
         ]);
     }
 

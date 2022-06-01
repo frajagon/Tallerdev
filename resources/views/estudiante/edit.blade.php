@@ -79,29 +79,16 @@
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
-                    <label for="estado">Grado academico</label>
-                    <select class="form-select form-control" aria-label="Default select example">
+                    <label for="estado">Grado academicos - Periodo</label>
+                    <select class="form-select form-control" aria-label="Default select example" name="id_grado_academico_periodo" id="id_grado_academico_periodo">
                         <option selected="selected">Seleccione una opción</option>
-                        <option>Parvulos</option>
-                        <option>Pre-Jardín</option>
-                        <option>Jardín</option>
-                        <option>Transición</option>
-                        <option>Primero de primaria</option>
-                        <option>Segundo de primaria</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label for="estado">Grupo</label>
-                    <select class="form-select form-control" aria-label="Default select example">
-                        <option selected="selected">Seleccione una opción</option>
-                        <option>A1</option>
-                        <option>A2</option>
-                        <option>B1</option>
-                        <option>B2</option>
-                        <option>C1</option>
-                        <option>C2</option>
+
+                        @foreach($gradosAcademicos as $gradoAcademico)
+                        <option value="{{$gradoAcademico->id}}" @if ($estudiante->id_gradoAcademico == $gradoAcademico->id) selected="selected" @endif
+                            >
+                            {{$gradoAcademico->nombre}} | {{$gradoAcademico->gradosacademicos->nombre}} - {{$gradoAcademico->grupo->nombre}}
+                        </option>
+                        @endforeach
                     </select>
                 </div>
             </div>

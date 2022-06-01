@@ -140,7 +140,7 @@
                     <a href="{{url('gradoacademicoperiodo')}}" class="nav-link">
                         <i class="nav-icon fas fa-graduation-cap"></i>
                         <p>
-                            Grupos - Periodos Academicos
+                            Periodos Academicos
                         </p>
                     </a>
                 </li>

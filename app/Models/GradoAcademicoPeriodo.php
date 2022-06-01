@@ -32,7 +32,7 @@ class GradoAcademicoPeriodo extends Model
     }
 
     //Relacion con la tabla grupos
-    public function grupos()
+    public function grupo()
     {
         return $this->belongsTo(Grupo::class, "id_grupo");
     }

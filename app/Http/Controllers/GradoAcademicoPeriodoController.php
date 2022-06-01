@@ -19,7 +19,10 @@ class GradoAcademicoPeriodoController extends Controller
      */
     public function index()
     {
-        $gradoacademicos = GradoAcademicoPeriodo::orderBy('nombre', 'DESC')->paginate(10);
+        $gradoacademicos = GradoAcademicoPeriodo::orderBy('nombre', 'DESC')
+            ->orderBy('id_grado_academico', 'DESC')
+            ->orderBy('id_grupo', 'DESC')
+            ->paginate(10);
         return view('gradoacademicoperiodo.index', compact('gradoacademicos'));
     }
 
