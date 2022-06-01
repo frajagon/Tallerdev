@@ -14,10 +14,27 @@ class AcudienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $acudientes = Acudiente::orderBy('primer_nombre', 'DESC')->orderBy('primer_apellido', 'DESC')->paginate(10);
-        return view('acudiente.index', compact('acudientes'));
+        $identificacion = $request->get('identificacion');
+        $nombres = $request->get('nombres');
+        $apellidos = $request->get('apellidos');
+
+        $acudientes = Acudiente::orderBy('primer_nombre', 'ASC')
+            ->numeroIdentificacion($identificacion)
+            ->nombres($nombres)
+            ->apellidos($apellidos)
+            ->orderBy('primer_apellido', 'ASC')
+            ->paginate(10);
+            
+        return view('acudiente.index', [
+            'acudientes' => $acudientes,
+            'filtros' => [
+                'identificacion' => $identificacion,
+                'nombres' => $nombres,
+                'apellidos' => $apellidos,
+            ]
+        ]);
     }
 
     /**
@@ -46,6 +63,10 @@ class AcudienteController extends Controller
         $acudientes->fecha_nacimiento = $request->get('fecha_nacimiento');
         $acudientes->numero_identificacion = $request->get('numero_identificacion');
         $acudientes->estado = $request->get('estado');
+        
+        if ($request->hasFile('imagen'))
+        $acudientes->imagen = $request->file('imagen')->store('dist/img/acudientes', 'public');
+        
         $acudientes->save();
 
         return Redirect::to('acudiente');
@@ -92,6 +113,10 @@ class AcudienteController extends Controller
         $acudientes->fecha_nacimiento = $request->get('fecha_nacimiento');
         $acudientes->numero_identificacion = $request->get('numero_identificacion');
         $acudientes->estado = $request->get('estado');
+        
+        if ($request->hasFile('imagen'))
+        $acudientes->imagen = $request->file('imagen')->store('dist/img/acudientes', 'public');
+        
      
         $acudientes->update();
         

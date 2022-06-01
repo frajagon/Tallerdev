@@ -559,7 +559,7 @@ ALTER TABLE `generos`
 --
 -- AUTO_INCREMENT de la tabla `grados_academicos`
 --
-ALTER TABLE `grados_academicos`
+ALTER TABLE `grados_academicos` 
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
@@ -660,11 +660,11 @@ ALTER TABLE `estudiantes`
 
 --
 -- Filtros para la tabla `grados_academicos_periodos`
---
-ALTER TABLE `grados_academicos_periodos`
-  ADD CONSTRAINT `grados_academicos_periodos_FK` FOREIGN KEY (`id_grado_academico`) REFERENCES `grados_academicos` (`id`),
-  ADD CONSTRAINT `grados_academicos_periodos_docente_FK_1` FOREIGN KEY (`id_docente`) REFERENCES `docentes` (`id`),
-  ADD CONSTRAINT `grados_academicos_periodos_grupo_FK_1` FOREIGN KEY (`id_grupo`) REFERENCES `grupo` (`id`);
+  --
+  ALTER TABLE `grados_academicos_periodos`
+    ADD CONSTRAINT `grados_academicos_periodos_FK` FOREIGN KEY (`id_grado_academico`) REFERENCES `grados_academicos` (`id`),
+    ADD CONSTRAINT `grados_academicos_periodos_docente_FK_1` FOREIGN KEY (`id_docente`) REFERENCES `docentes` (`id`),
+    ADD CONSTRAINT `grados_academicos_periodos_grupo_FK_1` FOREIGN KEY (`id_grupo`) REFERENCES `grupo` (`id`);
 
 --
 -- Filtros para la tabla `grados_academicos_periodos_estudiantes`

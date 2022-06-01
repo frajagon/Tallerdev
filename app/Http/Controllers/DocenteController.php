@@ -63,6 +63,11 @@ class DocenteController extends Controller
         $docentes->fecha_nacimiento = $request->get('fecha_nacimiento');
         $docentes->numero_identificacion = $request->get('numero_identificacion');
         $docentes->estado = $request->get('estado');
+
+        if ($request->hasFile('imagen'))
+            $docentes->imagen = $request->file('imagen')->store('dist/img/docentes', 'public');
+        
+
         $docentes->save();
 
         return Redirect::to('docente');
@@ -109,6 +114,10 @@ class DocenteController extends Controller
         $docentes->fecha_nacimiento = $request->get('fecha_nacimiento');
         $docentes->numero_identificacion = $request->get('numero_identificacion');
         $docentes->estado = $request->get('estado');
+
+        if ($request->hasFile('imagen'))
+            $docentes->imagen = $request->file('imagen')->store('dist/img/docentes', 'public');
+        
      
         $docentes->update();
         

@@ -14,11 +14,15 @@
         @endif
     </div>
 </div>
-{{Form::open(array('action'=>array('App\http\Controllers\DocenteController@update', $docente->id),'method'=>'patch'))}}
+{{Form::open(array('action'=>array('App\http\Controllers\DocenteController@update', $docente->id),'method'=>'patch', 'files'=>true))}}
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        @if($docente->imagen)
+        <img src="{{asset('../storage/app/public/'.$docente->imagen)}}" alt="" width="100%">
+        @else
         <img src="{{asset('dist/img/docentes/prueba-01.png')}}" alt="" width="100%">
-        <input type="file"  class="form-control" value="">
+        @endif
+        <input type="file" class="form-control" name="imagen" id="imagen" value="">
     </div>
     <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
         <div class="row">

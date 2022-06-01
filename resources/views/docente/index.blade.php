@@ -39,7 +39,7 @@
                     <th>Opciones</th>
                 </thead>
                 <tbody>
-                    {{ Form::open(array('route'=> 'estudiante.index', 'method'=>'GET', 'class'=>'form-inline pull-right')) }}
+                    {{ Form::open(array('route'=> 'docente.index', 'method'=>'GET', 'class'=>'form-inline pull-right')) }}
                     <tr>
                         <td></td>
                         <td>
@@ -71,8 +71,8 @@
                             <img class="table-avatar" src="{{asset('dist/img/docentes/prueba-01.png')}}" alt="" width="50px">
                             @endif
                         </td>
-                        <td>{{ $docente->primer_nombre }} {{ $docente->segundo_nombre }}</td>
-                        <td>{{ $docente->primer_apellido}} {{ $docente->segundo_apellido}}</td>
+                        <td>{{ $docente->get_nombres }}</td>
+                        <td>{{ $docente->get_apellidos }}</td>
                         <td>{{ $docente->numero_identificacion }}</td>
                         <td>{{ $docente->fecha_nacimiento }}</td>
                         <td>

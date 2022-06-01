@@ -39,18 +39,45 @@
                     <th>Opciones</th>
                 </thead>
                 <tbody>
+                    {{ Form::open(array('route'=> 'acudiente.index', 'method'=>'GET', 'class'=>'form-inline pull-right')) }}
+                    <tr>
+                        <td></td>
+                        <td>
+                            {{ Form::text('nombres', $filtros['nombres'], ['class'=>'form-control', 'placeholder'=>'Nombres' ]) }}
+                        </td>
+                        <td>
+                            {{ Form::text('apellidos', $filtros['apellidos'], ['class'=>'form-control', 'placeholder'=>'Apellidos' ]) }}
+                        </td>
+                        <td>
+                            {{ Form::text('identificacion', $filtros['identificacion'], ['class'=>'form-control', 'placeholder'=>'Identificaciòn' ]) }}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-refresh"></span> Buscar</button>
+                        </td>
+                    </tr>
+                    {{ Form::close() }}
+
                     @foreach($acudientes as $acudiente)
                     <tr>
-                        <td><img src="{{asset('dist/img/acudientes/acudiente-01.png')}}" alt="" width="50px"></td>
+                        <td>
+                            @if($acudiente->imagen)
+                            <img class="table-avatar" src="{{asset('../storage/app/public/'.$acudiente->imagen)}}" alt="" width="50px">
+                            @else
+                            <img class="table-avatar" src="{{asset('dist/img/acudientes/prueba-01.png')}}" alt="" width="50px">
+                            @endif
+                        </td>
                         <td>{{ $acudiente->primer_nombre }} {{ $acudiente->segundo_nombre }}</td>
                         <td>{{ $acudiente->primer_apellido}} {{ $acudiente->segundo_apellido}}</td>
                         <td>{{ $acudiente->numero_identificacion }}</td>
                         <td>{{ $acudiente->fecha_nacimiento }}</td>
                         <td>
                             @if ($acudiente->estado == 1)
-                                Activo
+                            Activo
                             @else
-                                Inactivo
+                            Inactivo
                             @endif
                         </td>
                         <td>

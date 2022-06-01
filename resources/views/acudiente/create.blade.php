@@ -14,51 +14,50 @@
         @endif
     </div>
 </div>
-{!!Form::open(array('url'=>'acudiente','method'=>'POST','autocomplete'=>'off')
+{!!Form::open(array('url'=>'acudiente','method'=>'POST','autocomplete'=>'off', 'files'=>true)
 )!!}
 {{Form::token()}}
-<div class="row">
-
+<div class="row">    
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <img src="{{asset('dist/img/acudientes/prueba-01.png')}}" alt="" width="100%">
-        <input type="file"  class="form-control" value="">
+        <input type="file" class="form-control" name="imagen" id="imagen" value="">
     </div>
     <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
         <div class="row">
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="primer_nombre">Primer Nombre</label>
-                    <input type="text" name="primer_nombre" id="primer_nombre" class="form-control" placeholder="Primer nombre">
+                    <input type="text" name="primer_nombre" id="primer_nombre" class="form-control" placeholder="Primer nombre"  value="{{old('primer_nombre')}}">
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="segundo_nombre">Segundo Nombre</label>
-                    <input type="text" name="segundo_nombre" id="segundo_nombre" class="form-control" placeholder="Segundo nombre">
+                    <input type="text" name="segundo_nombre" id="segundo_nombre" class="form-control" placeholder="Segundo nombre"  value="{{old('segundo_nombre')}}">
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="primer_apellido">Primer Apellido</label>
-                    <input type="text" name="primer_apellido" id="primer_apellido" class="form-control" placeholder="Primer apellido">
+                    <input type="text" name="primer_apellido" id="primer_apellido" class="form-control" placeholder="Primer apellido"  value="{{old('primer_apellido')}}">
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="segundo_apellido">Segundo Apellido</label>
-                    <input type="text" name="segundo_apellido" id="segundo_apellido" class="form-control" placeholder="Segundo apellido">
+                    <input type="text" name="segundo_apellido" id="segundo_apellido" class="form-control" placeholder="Segundo apellido"  value="{{old('segundo_apellido')}}">
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="numero_identificacion">Número de Identificación</label>
-                    <input type="text" name="numero_identificacion" id="numero_identificacion" class="form-control" placeholder="Número de identificación">
+                    <input type="text" name="numero_identificacion" id="numero_identificacion" class="form-control" placeholder="Número de identificación"  value="{{old('numero_identificacion')}}">
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                    <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" placeholder="Fecha de Nacimiento">
+                    <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" placeholder="Fecha de Nacimiento"  value="{{old('fecha_nacimiento')}}">
                 </div>
             </div>
             
