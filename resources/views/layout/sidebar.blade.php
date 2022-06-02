@@ -14,28 +14,11 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                @if( Auth::user()->roles[0]['name'] == 'docente' )
-                    @if(Auth::user()->docentes[0]->imagen)
-                    <img src="{{asset('../storage/app/public/'.Auth::user()->docentes[0]->imagen)}}" class="img-circle elevation-2" alt="User Image">
-                    @else
-                    <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
-                    @endif
-                @elseif( Auth::user()->roles[0]['name'] == 'acudiente' )
-                    {{ Auth::user()->acudientes[0]->primer_nombre }}
-                    {{ Auth::user()->acudientes[0]->primer_apellido }}
-                @endif
+                <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">
-
-                    @if( Auth::user()->roles[0]['name'] == 'docente' )
-                    {{ Auth::user()->docentes[0]->primer_nombre }}
-                    {{ Auth::user()->docentes[0]->primer_apellido }}
-                    @elseif( Auth::user()->roles[0]['name'] == 'acudiente' )
-                    {{ Auth::user()->acudientes[0]->primer_nombre }}
-                    {{ Auth::user()->acudientes[0]->primer_apellido }}
-                    @endif
-
+                    {{ Auth::user()->name }}
                 </a>
             </div>
         </div>

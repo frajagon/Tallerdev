@@ -9,6 +9,8 @@
 
 <br>
 
+
+@if (Auth::user()->roles[0]['name'] == 'admin')
 <div class="row">
     <div class="col-md-9">
         <a href="{{url('estudiante/create')}}" class="pull-right">
@@ -28,6 +30,9 @@
         Total de estudiantes: {{ $estudiantes->total() }}
     </div>
 </div>
+@endif
+
+
 <div class="row">
     <div class="col-md-12 col-xs-9">
         <div class="table-responsive">
@@ -91,6 +96,8 @@
                             @endif
                         </td>
                         <td>
+                            @if (Auth::user()->roles[0]['name'] == 'admin')
+
                             <a href="{{URL::action('App\http\Controllers\EstudianteController@edit',$estudiante->id)}}">
                                 <button class="btn btn-primary">
                                     <i class="fas fa-user-edit"></i>
@@ -102,6 +109,13 @@
                                     <i class="fas fa-user-times"></i>
                                     Inactivar
                                 </button></a>
+                            @else
+                            <a href="{{URL::action('App\http\Controllers\EstudianteController@edit',$estudiante->id)}}">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-user"></i>
+                                    Ver màs
+                                </button></a>
+                            @endif
                         </td>
                     </tr>
                     @include('estudiante.modal')
