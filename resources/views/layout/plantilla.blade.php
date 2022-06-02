@@ -145,11 +145,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </nav>
         <!-- /.navbar -->
 
-        
+
         <!-- Main Sidebar Container -->
-        @include('layout.sidebar')
-            
-    
+        @if( Auth::user()->roles[0]['name'] == 'admin' )
+            @include('layout.sidebar')
+        @elseif ( Auth::user()->roles[0]['name'] == 'docente' )
+            @include('layout.siderbar_docente')
+        @else
+            @include('layout.siderbar_acudiente')
+        @endif
+
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->

@@ -9,6 +9,7 @@
 
 <br>
 
+@if (Auth::user()->roles[0]['name'] == 'admin')
 <div class="row">
     <div class="col-md-9">
         <a href="{{url('acudiente/create')}}" class="pull-right">
@@ -25,6 +26,8 @@
         </a>
     </div>
 </div>
+@endif
+
 <div class="row">
     <div class="col-md-12 col-xs-9">
         <div class="table-responsive">
@@ -51,7 +54,6 @@
                         <td>
                             {{ Form::text('identificacion', $filtros['identificacion'], ['class'=>'form-control', 'placeholder'=>'Identificaciòn' ]) }}
                         </td>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td>
@@ -84,14 +86,20 @@
                             <a href="{{URL::action('App\http\Controllers\AcudienteController@edit',$acudiente->id)}}">
                                 <button class="btn btn-primary">
                                     <i class="fas fa-user-edit"></i>
+                                    @if( Auth::user()->roles[0]['name'] == 'admin' )
                                     Actualizar
+                                    @else
+                                    Ver màs
+                                    @endif
                                 </button></a>
 
+                            @if( Auth::user()->roles[0]['name'] == 'admin' )
                             <a href="" data-target="#modal-delete-{{$acudiente->id}}" data-toggle="modal">
                                 <button class="btn btn-danger">
                                     <i class="fas fa-user-times"></i>
                                     Inactivar
                                 </button></a>
+                            @endif
                         </td>
                     </tr>
                     @include('acudiente.modal')

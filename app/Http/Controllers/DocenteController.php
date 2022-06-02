@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\DocenteFormRequest;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Throwable;
 
 class DocenteController extends Controller
@@ -97,7 +98,7 @@ class DocenteController extends Controller
                 $user->save();
             }
 
-            if ($user->count()){
+            if ($user->count()) {
                 $user->roles()->attach($role);
                 $docentes->id_usuario = $user->id;
             }
@@ -182,7 +183,7 @@ class DocenteController extends Controller
                 $user->save();
             }
 
-            if ($user->count()){
+            if ($user->count()) {
                 $user->roles()->attach($role);
                 $docentes->id_usuario = $user->id;
             }
@@ -190,7 +191,13 @@ class DocenteController extends Controller
 
         $docentes->update();
 
-        return Redirect::to('docente');
+        if (Auth::user()->roles[0]->name == 'docente') {
+            return view("docente.edit", [
+                "docente" => $docentes
+            ]);
+        } else {
+            return Redirect::to('docente');
+        }
     }
 
     /**

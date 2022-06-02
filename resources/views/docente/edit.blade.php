@@ -2,7 +2,12 @@
 @section ('contenido')
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        @if( Auth::user()->roles[0]['name'] == 'docente' )
+        <h3>Mi cuenta</h3>
+        @else
         <h3>Editar Docente</h3>
+        @endif
+
         @if (count($errors)>0)
         <div class="alert alert-danger">
             <ul>
@@ -14,6 +19,7 @@
         @endif
     </div>
 </div>
+
 {{Form::open(array('action'=>array('App\http\Controllers\DocenteController@update', $docente->id),'method'=>'patch', 'files'=>true))}}
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -116,7 +122,10 @@
         <div class="form-group text-end">
             <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-refresh"></span> Actualizar
             </button>
+
+            @if( Auth::user()->roles[0]['name'] == 'admin' )
             <a class="btn btn-info" type="reset" href="{{url('docente')}}"><span class="glyphicon glyphicon-home"></span> Regresar </a>
+            @endif
         </div>
     </div>
 </div>

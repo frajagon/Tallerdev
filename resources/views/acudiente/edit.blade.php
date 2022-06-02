@@ -22,46 +22,51 @@
         @else
         <img src="{{asset('dist/img/acudientes/prueba-01.png')}}" alt="" width="100%">
         @endif
+
+        @if( Auth::user()->roles[0]['name'] == 'admin' )
         <input type="file" class="form-control" name="imagen" id="imagen" value="">
+        @endif
+
     </div>
     <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
         <div class="row">
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="primer_nombre">Primer Nombre</label>
-                    <input type="text" name="primer_nombre" id="primer_nombre" class="form-control" value="{{$acudiente->primer_nombre}}" placeholder="Primer nombre">
+                    <input type="text" name="primer_nombre" id="primer_nombre" class="form-control" value="{{$acudiente->primer_nombre}}" placeholder="Primer nombre" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="segundo_nombre">Segundo Nombre</label>
-                    <input type="text" name="segundo_nombre" id="segundo_nombre" class="form-control" value="{{$acudiente->segundo_nombre}}" placeholder="Segundo nombre">
+                    <input type="text" name="segundo_nombre" id="segundo_nombre" class="form-control" value="{{$acudiente->segundo_nombre}}" placeholder="Segundo nombre" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="primer_apellido">Primer Apellido</label>
-                    <input type="text" name="primer_apellido" id="primer_apellido" class="form-control" value="{{$acudiente->primer_apellido}}" placeholder="Primer apellido">
+                    <input type="text" name="primer_apellido" id="primer_apellido" class="form-control" value="{{$acudiente->primer_apellido}}" placeholder="Primer apellido" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="segundo_apellido">Segundo Apellido</label>
-                    <input type="text" name="segundo_apellido" id="segundo_apellido" class="form-control" value="{{$acudiente->segundo_apellido}}" placeholder="Segundo apellido">
+                    <input type="text" name="segundo_apellido" id="segundo_apellido" class="form-control" value="{{$acudiente->segundo_apellido}}" placeholder="Segundo apellido" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="numero_identificacion">Número de Identificación</label>
-                    <input type="text" name="numero_identificacion" id="numero_identificacion" class="form-control" value="{{$acudiente->numero_identificacion}}" placeholder="Número de identificación">
+                    <input type="text" name="numero_identificacion" id="numero_identificacion" class="form-control" value="{{$acudiente->numero_identificacion}}" placeholder="Número de identificación" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                    <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{$acudiente->fecha_nacimiento}}" placeholder="Fecha de Nacimiento">
+                    <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{$acudiente->fecha_nacimiento}}" placeholder="Fecha de Nacimiento" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
                 </div>
             </div>
+            @if( Auth::user()->roles[0]['name'] == 'admin' )
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="estado">Estado</label>
@@ -71,10 +76,19 @@
                     </select>
                 </div>
             </div>
-            
+            @else
+            <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="estado">Estado</label>
+                    <input type="text" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" disabled
+                    value="@if ($acudiente->estado == 1) Activo @else Inactivo  @endif">
+                </div>
+            </div>
+            @endif
+
         </div>
 
-
+        @if( Auth::user()->roles[0]['name'] == 'admin' )
         <div class="row">
             <div class="col">
                 <hr>
@@ -105,6 +119,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
 
     </div>
@@ -115,7 +130,9 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
         <div class="form-group text-end">
+            @if( Auth::user()->roles[0]['name'] == 'admin' )
             <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-refresh"></span> Actualizar
+                @endif
             </button>
             <a class="btn btn-info" type="reset" href="{{url('acudiente')}}"><span class="glyphicon glyphicon-home"></span> Regresar </a>
         </div>
