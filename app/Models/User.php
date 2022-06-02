@@ -80,4 +80,16 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    //Relacion con la tabla docentes
+    public function docentes()
+    {
+        return $this->hasMany(Docente::class, "id");
+    }
+
+     //Relacion con la tabla acudientes
+     public function acudientes()
+     {
+         return $this->hasMany(Acudiente::class, "id");
+     }
 }

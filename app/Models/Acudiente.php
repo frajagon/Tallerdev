@@ -28,6 +28,12 @@ class Acudiente extends Model
         return $this->hasMany(Estudiante::class, "id");
     }
 
+    //Relacion con la tabla Users
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, "id_usuario");
+    }
+
     public function getGetNombresAttribute()
     {
         return $this->primer_nombre . ' ' . $this->segundo_nombre;

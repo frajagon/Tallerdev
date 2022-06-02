@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Acudiente;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\AcudienteFormRequest;
+use App\Models\Role;
+use App\Models\User;
+use PhpParser\ErrorHandler\Throwing;
+use PhpParser\Node\Expr\Cast\Object_;
+use Throwable;
 
 class AcudienteController extends Controller
 {
@@ -26,7 +31,7 @@ class AcudienteController extends Controller
             ->apellidos($apellidos)
             ->orderBy('primer_apellido', 'ASC')
             ->paginate(10);
-            
+
         return view('acudiente.index', [
             'acudientes' => $acudientes,
             'filtros' => [
@@ -63,10 +68,43 @@ class AcudienteController extends Controller
         $acudientes->fecha_nacimiento = $request->get('fecha_nacimiento');
         $acudientes->numero_identificacion = $request->get('numero_identificacion');
         $acudientes->estado = $request->get('estado');
-        
+
         if ($request->hasFile('imagen'))
-        $acudientes->imagen = $request->file('imagen')->store('dist/img/acudientes', 'public');
-        
+            $acudientes->imagen = $request->file('imagen')->store('dist/img/acudientes', 'public');
+
+
+        $email = trim($request->get('usuario'));
+        $password = $request->get('clave');
+
+        if ($email) {
+            $user = '';
+            $role = Role::where('name', 'acudiente')->first();
+
+            try {
+                $user = User::where('email', $email)->firstOrFail();
+
+                $user->email = $email;
+                $user->name = 'Acudiente';
+                $user->password = bcrypt($password);
+
+                $user->update();
+            } catch (Throwable $e) {
+                $user = new User();
+                $user->name = 'Acudiente';
+                $user->password = bcrypt($password);
+
+                if ($password)
+                    $user->email = $email;
+
+                $user->save();
+            }
+
+            if ($user->count()) {
+                $user->roles()->attach($role);
+                $acudientes->id_usuario = $user->id;
+            }
+        }
+
         $acudientes->save();
 
         return Redirect::to('acudiente');
@@ -113,13 +151,44 @@ class AcudienteController extends Controller
         $acudientes->fecha_nacimiento = $request->get('fecha_nacimiento');
         $acudientes->numero_identificacion = $request->get('numero_identificacion');
         $acudientes->estado = $request->get('estado');
-        
+
         if ($request->hasFile('imagen'))
-        $acudientes->imagen = $request->file('imagen')->store('dist/img/acudientes', 'public');
-        
-     
+            $acudientes->imagen = $request->file('imagen')->store('dist/img/acudientes', 'public');
+
+        $email = trim($request->get('usuario'));
+        $password = $request->get('clave');
+
+        if ($email) {
+            $user = '';
+            $role = Role::where('name', 'acudiente')->first();
+
+            try {
+                $user = User::where('email', $email)->firstOrFail();
+
+                $user->email = $email;
+                $user->name = 'Acudiente';
+                $user->password = bcrypt($password);
+
+                $user->update();
+            } catch (Throwable $e) {
+                $user = new User();
+                $user->name = 'Acudiente';
+                $user->password = bcrypt($password);
+
+                if ($password)
+                    $user->email = $email;
+
+                $user->save();
+            }
+
+            if ($user->count()) {
+                $user->roles()->attach($role);
+                $acudientes->id_usuario = $user->id;
+            }
+        }
+
         $acudientes->update();
-        
+
         return Redirect::to('acudiente');
     }
 
@@ -134,7 +203,7 @@ class AcudienteController extends Controller
         $acudientes = Acudiente::findOrFail($id);
         $acudientes->estado = 0;
         $acudientes->update();
-        
+
         // $acudientes->delete();
 
         return Redirect::to('acudiente');

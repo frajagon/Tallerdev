@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Docente;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\DocenteFormRequest;
+use App\Models\Role;
+use App\Models\User;
+use Throwable;
 
 class DocenteController extends Controller
 {
@@ -26,7 +29,7 @@ class DocenteController extends Controller
             ->apellidos($apellidos)
             ->orderBy('primer_apellido', 'ASC')
             ->paginate(10);
-            
+
         return view('docente.index', [
             'docentes' => $docentes,
             'filtros' => [
@@ -66,7 +69,39 @@ class DocenteController extends Controller
 
         if ($request->hasFile('imagen'))
             $docentes->imagen = $request->file('imagen')->store('dist/img/docentes', 'public');
-        
+
+
+        $email = trim($request->get('usuario'));
+        $password = $request->get('clave');
+
+        if ($email) {
+            $user = '';
+            $role = Role::where('name', 'docente')->first();
+
+            try {
+                $user = User::where('email', $email)->firstOrFail();
+
+                $user->email = $email;
+                $user->name = 'Acudiente';
+                $user->password = bcrypt($password);
+
+                $user->update();
+            } catch (Throwable $e) {
+                $user = new User();
+                $user->name = 'Acudiente';
+                $user->password = bcrypt($password);
+
+                if ($password)
+                    $user->email = $email;
+
+                $user->save();
+            }
+
+            if ($user->count()){
+                $user->roles()->attach($role);
+                $docentes->id_usuario = $user->id;
+            }
+        }
 
         $docentes->save();
 
@@ -93,7 +128,10 @@ class DocenteController extends Controller
     public function edit($id)
     {
         $docente = Docente::findOrFail($id);
-        return view("docente.edit", ["docente" => $docente]);
+
+        return view("docente.edit", [
+            "docente" => $docente
+        ]);
     }
 
     /**
@@ -117,10 +155,41 @@ class DocenteController extends Controller
 
         if ($request->hasFile('imagen'))
             $docentes->imagen = $request->file('imagen')->store('dist/img/docentes', 'public');
-        
-     
+
+        $email = trim($request->get('usuario'));
+        $password = $request->get('clave');
+
+        if ($email) {
+            $user = '';
+            $role = Role::where('name', 'docente')->first();
+
+            try {
+                $user = User::where('email', $email)->firstOrFail();
+
+                $user->email = $email;
+                $user->name = 'Acudiente';
+                $user->password = bcrypt($password);
+
+                $user->update();
+            } catch (Throwable $e) {
+                $user = new User();
+                $user->name = 'Acudiente';
+                $user->password = bcrypt($password);
+
+                if ($password)
+                    $user->email = $email;
+
+                $user->save();
+            }
+
+            if ($user->count()){
+                $user->roles()->attach($role);
+                $docentes->id_usuario = $user->id;
+            }
+        }
+
         $docentes->update();
-        
+
         return Redirect::to('docente');
     }
 
@@ -135,7 +204,7 @@ class DocenteController extends Controller
         $docentes = Docente::findOrFail($id);
         $docentes->estado = 0;
         $docentes->update();
-        
+
         // $docentes->delete();
 
         return Redirect::to('docente');

@@ -71,6 +71,38 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="row">
+            <div class="col">
+                <hr>
+                <h4>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                    </svg>
+                    Credenciales de acceso
+                </h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                    <input type="email" class="form-control" placeholder="Email de ingreso" aria-label="Username" aria-describedby="basic-addon1" name="usuario" id="usuario" value="{{old('usuario')}}">
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+                            <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z" />
+                            <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg>
+                    </span>
+                    <input type="password" class="form-control" placeholder="Contraseña" aria-label="Username" aria-describedby="basic-addon1" name="clave" id="clave">
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

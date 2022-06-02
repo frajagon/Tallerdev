@@ -17,7 +17,10 @@
                 <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Francisco Gonzalez</a>
+                <a href="#" class="d-block">
+                {{ Auth::user()->name }}
+                {{ Auth::user()->id }}
+                </a>
             </div>
         </div>
 
@@ -112,14 +115,14 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{url('asignaciond')}}" class="nav-link">
                         <i class="nav-icon fas fa-chalkboard-teacher"></i>
                         <p>
                             Asignaciòn Docentes
                         </p>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a href="{{url('gradoacademico')}}" class="nav-link">
                         <i class="nav-icon fas fa-graduation-cap"></i>
