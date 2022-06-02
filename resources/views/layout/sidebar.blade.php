@@ -194,6 +194,18 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item" style="border-top: solid 1px white; margin: 23px 0 0 0;">
+                    <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                        <i class="nav-icon fas fa-door-open"></i>
+                        <p>
+                            Cerrar Sesiòn
+                        </p>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

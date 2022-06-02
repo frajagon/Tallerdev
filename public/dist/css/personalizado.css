@@ -21,4 +21,5 @@
 
 .logo-empresa {
     height: 60px;
+    border-radius: unset;
 }

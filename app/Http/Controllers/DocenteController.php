@@ -29,7 +29,7 @@ class DocenteController extends Controller
             ->nombres($nombres)
             ->apellidos($apellidos)
             ->orderBy('primer_apellido', 'ASC')
-            ->paginate(10);
+            ->paginate(5);
 
         return view('docente.index', [
             'docentes' => $docentes,

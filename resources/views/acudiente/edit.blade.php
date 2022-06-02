@@ -2,7 +2,11 @@
 @section ('contenido')
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        @if( Auth::user()->roles[0]['name'] == 'acudiente' )
         <h3>Editar acudiente</h3>
+        @else
+        <h3>Mi Cuenta</h3>
+        @endif
         @if (count($errors)>0)
         <div class="alert alert-danger">
             <ul>
@@ -33,40 +37,40 @@
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="primer_nombre">Primer Nombre</label>
-                    <input type="text" name="primer_nombre" id="primer_nombre" class="form-control" value="{{$acudiente->primer_nombre}}" placeholder="Primer nombre" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
+                    <input type="text" name="primer_nombre" id="primer_nombre" class="form-control" value="{{$acudiente->primer_nombre}}" placeholder="Primer nombre" @if (Auth::user()->roles[0]['name'] == 'docente') disabled @endif>
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="segundo_nombre">Segundo Nombre</label>
-                    <input type="text" name="segundo_nombre" id="segundo_nombre" class="form-control" value="{{$acudiente->segundo_nombre}}" placeholder="Segundo nombre" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
+                    <input type="text" name="segundo_nombre" id="segundo_nombre" class="form-control" value="{{$acudiente->segundo_nombre}}" placeholder="Segundo nombre" @if (Auth::user()->roles[0]['name'] == 'docente') disabled @endif>
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="primer_apellido">Primer Apellido</label>
-                    <input type="text" name="primer_apellido" id="primer_apellido" class="form-control" value="{{$acudiente->primer_apellido}}" placeholder="Primer apellido" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
+                    <input type="text" name="primer_apellido" id="primer_apellido" class="form-control" value="{{$acudiente->primer_apellido}}" placeholder="Primer apellido" @if (Auth::user()->roles[0]['name'] == 'docente') disabled @endif>
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="segundo_apellido">Segundo Apellido</label>
-                    <input type="text" name="segundo_apellido" id="segundo_apellido" class="form-control" value="{{$acudiente->segundo_apellido}}" placeholder="Segundo apellido" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
+                    <input type="text" name="segundo_apellido" id="segundo_apellido" class="form-control" value="{{$acudiente->segundo_apellido}}" placeholder="Segundo apellido" @if (Auth::user()->roles[0]['name'] == 'docente') disabled @endif>
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="numero_identificacion">Número de Identificación</label>
-                    <input type="text" name="numero_identificacion" id="numero_identificacion" class="form-control" value="{{$acudiente->numero_identificacion}}" placeholder="Número de identificación" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
+                    <input type="text" name="numero_identificacion" id="numero_identificacion" class="form-control" value="{{$acudiente->numero_identificacion}}" placeholder="Número de identificación" @if (Auth::user()->roles[0]['name'] == 'docente') disabled @endif>
                 </div>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                    <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{$acudiente->fecha_nacimiento}}" placeholder="Fecha de Nacimiento" @if (Auth::user()->roles[0]['name'] != 'admin') disabled @endif>
+                    <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{$acudiente->fecha_nacimiento}}" placeholder="Fecha de Nacimiento" @if (Auth::user()->roles[0]['name'] == 'docente') disabled @endif>
                 </div>
             </div>
-            @if( Auth::user()->roles[0]['name'] == 'admin' )
+            @if( Auth::user()->roles[0]['name'] == 'admin' || Auth::user()->roles[0]['name'] == 'acudiente')
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="estado">Estado</label>
@@ -80,15 +84,14 @@
             <div class="col-lg-4 col-md-9 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="estado">Estado</label>
-                    <input type="text" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" disabled
-                    value="@if ($acudiente->estado == 1) Activo @else Inactivo  @endif">
+                    <input type="text" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" disabled value="@if ($acudiente->estado == 1) Activo @else Inactivo  @endif">
                 </div>
             </div>
             @endif
 
         </div>
 
-        @if( Auth::user()->roles[0]['name'] == 'admin' )
+        @if( Auth::user()->roles[0]['name'] == 'admin' || Auth::user()->roles[0]['name'] == 'acudiente' )
         <div class="row">
             <div class="col">
                 <hr>
@@ -130,11 +133,13 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
         <div class="form-group text-end">
-            @if( Auth::user()->roles[0]['name'] == 'admin' )
+            @if( Auth::user()->roles[0]['name'] == 'admin' || Auth::user()->roles[0]['name'] == 'acudiente')
             <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-refresh"></span> Actualizar
                 @endif
             </button>
+            @if( Auth::user()->roles[0]['name'] != 'acudiente')
             <a class="btn btn-info" type="reset" href="{{url('acudiente')}}"><span class="glyphicon glyphicon-home"></span> Regresar </a>
+            @endif
         </div>
     </div>
 </div>

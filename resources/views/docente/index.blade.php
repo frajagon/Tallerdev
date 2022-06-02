@@ -9,6 +9,7 @@
 
 <br>
 
+@if( Auth::user()->roles[0]['name'] == 'admin')
 <div class="row">
     <div class="col-md-9">
         <a href="{{url('docente/create')}}" class="pull-right">
@@ -24,7 +25,12 @@
             </button>
         </a>
     </div>
+    <div class="col-md-3  nav justify-content-end">
+        Total de docentes: {{ $docentes->total() }}
+    </div>
 </div>
+@endif
+
 <div class="row">
     <div class="col-md-12 col-xs-9">
         <div class="table-responsive">
@@ -51,7 +57,6 @@
                         <td>
                             {{ Form::text('identificacion', $filtros['identificacion'], ['class'=>'form-control', 'placeholder'=>'Identificaciòn' ]) }}
                         </td>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td>
@@ -83,6 +88,7 @@
                             @endif
                         </td>
                         <td>
+                            @if( Auth::user()->roles[0]['name'] == 'admin')
                             <a href="{{URL::action('App\http\Controllers\DocenteController@edit',$docente->id)}}">
                                 <button class="btn btn-primary">
                                     <i class="fas fa-user-edit"></i>
@@ -94,6 +100,14 @@
                                     <i class="fas fa-user-times"></i>
                                     Inactivar
                                 </button></a>
+                            @else
+
+                            <a href="{{URL::action('App\http\Controllers\DocenteController@edit',$docente->id)}}">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-user"></i>
+                                    Ver màs
+                                </button></a>
+                            @endif
                         </td>
                     </tr>
                     @include('docente.modal')
@@ -102,6 +116,12 @@
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-xs-9">
+        {{ $docentes->links() }}
     </div>
 </div>
 @endsection

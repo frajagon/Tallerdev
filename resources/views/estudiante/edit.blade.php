@@ -26,7 +26,10 @@
         @else
         <img src="{{asset('dist/img/estudiantes/prueba-01.png')}}" alt="" width="100%">
         @endif
+        
+        @if(Auth::user()->roles[0]['name'] == 'admin')
         <input type="file" class="form-control" name="imagen" id="imagen" value="">
+        @endif
     </div>
     <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
         <div class="row">

@@ -25,6 +25,10 @@
             </button>
         </a>
     </div>
+
+    <div class="col-md-3  nav justify-content-end">
+        Total de acudientes: {{ $acudientes->total() }}
+    </div>
 </div>
 @endif
 
@@ -108,6 +112,12 @@
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-xs-9">
+        {{ $acudientes->links() }}
     </div>
 </div>
 @endsection

@@ -10,6 +10,7 @@ use App\Models\Acudiente;
 use App\Models\Genero;
 use App\Models\GradoAcademico;
 use App\Models\GradoAcademicoPeriodo;
+use Illuminate\Support\Facades\Auth;
 
 class EstudianteController extends Controller
 {
@@ -37,24 +38,38 @@ class EstudianteController extends Controller
         // if ($numero_identificacion)
         //     dd($request);
 
-        // dd($numero_identificacion);
-
-
-
-        $estudiantes = Estudiante::orderBy('primer_nombre', 'ASC')
-            ->numeroIdentificacion($identificacion)
-            ->nombres($nombres)
-            ->apellidos($apellidos)
-            ->orderBy('primer_apellido', 'ASC')
-            ->paginate(10);
-        return view('estudiante.index', [
-            'estudiantes' => $estudiantes,
-            'filtros' => [
-                'identificacion' => $identificacion,
-                'nombres' => $nombres,
-                'apellidos' => $apellidos,
-            ]
-        ]);
+        if (Auth::user()->roles[0]->name == 'acudiente') {
+            $estudiantes = Estudiante::orderBy('primer_nombre', 'ASC')
+                ->numeroIdentificacion($identificacion)
+                ->nombres($nombres)
+                ->apellidos($apellidos)
+                ->where('id_acudiente',Auth::user()->acudientes[0]->id)
+                ->orderBy('primer_apellido', 'ASC')
+                ->paginate(5);
+            return view('estudiante.index', [
+                'estudiantes' => $estudiantes,
+                'filtros' => [
+                    'identificacion' => $identificacion,
+                    'nombres' => $nombres,
+                    'apellidos' => $apellidos,
+                ]
+            ]);
+        } else {
+            $estudiantes = Estudiante::orderBy('primer_nombre', 'ASC')
+                ->numeroIdentificacion($identificacion)
+                ->nombres($nombres)
+                ->apellidos($apellidos)
+                ->orderBy('primer_apellido', 'ASC')
+                ->paginate(5);
+            return view('estudiante.index', [
+                'estudiantes' => $estudiantes,
+                'filtros' => [
+                    'identificacion' => $identificacion,
+                    'nombres' => $nombres,
+                    'apellidos' => $apellidos,
+                ]
+            ]);
+        }
     }
 
     /**
@@ -127,7 +142,7 @@ class EstudianteController extends Controller
         $estudiante = Estudiante::findOrFail($id);
         $acudientes = Acudiente::all();
         $generos = Genero::all();
-        $gradosAcademicos = GradoAcademicoPeriodo::all()->where('estado',1);
+        $gradosAcademicos = GradoAcademicoPeriodo::all()->where('estado', 1);
 
         //dd($acudientes);
         // dd($acudientes->toArray());

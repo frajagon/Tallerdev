@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\AcudienteFormRequest;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use PhpParser\ErrorHandler\Throwing;
 use PhpParser\Node\Expr\Cast\Object_;
 use Throwable;
@@ -30,7 +31,7 @@ class AcudienteController extends Controller
             ->nombres($nombres)
             ->apellidos($apellidos)
             ->orderBy('primer_apellido', 'ASC')
-            ->paginate(10);
+            ->paginate(5);
 
         return view('acudiente.index', [
             'acudientes' => $acudientes,
@@ -189,7 +190,14 @@ class AcudienteController extends Controller
 
         $acudientes->update();
 
-        return Redirect::to('acudiente');
+        if (Auth::user()->roles[0]->name == 'acudiente') {
+            return view("acudiente.edit", [
+                "acudiente" => $acudientes
+            ]);
+        } else {
+            return Redirect::to('acudiente');
+        }
+
     }
 
     /**
