@@ -25,6 +25,7 @@ Route::resource('docente', 'App\http\Controllers\DocenteController')->middleware
 Route::resource('gradoacademico', 'App\http\Controllers\GradoAcademicoController')->middleware('auth');
 Route::resource('grupo', 'App\http\Controllers\GrupoController')->middleware('auth');
 Route::resource('gradoacademicoperiodo', 'App\http\Controllers\GradoAcademicoPeriodoController')->middleware('auth');
+Route::resource('calendarioactividad', 'App\http\Controllers\CalendarioActividadController')->middleware('auth');
 
 Route::get('imprimirPersonas','App\http\Controllers\PdfController@imprimirPersonas')->name('imprimirPersonas');
 Route::get('imprimirEstudiantes','App\http\Controllers\PdfController@imprimirEstudiantes')->name('imprimirEstudiantes');

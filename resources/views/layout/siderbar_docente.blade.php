@@ -75,7 +75,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('asistencia')}}" class="nav-link">
+                    <a href="{{url('calendarioactividad')}}" class="nav-link">
                         <i class="nav-icon fas fa-book-reader"></i>
                         <p>
                             Actividades
